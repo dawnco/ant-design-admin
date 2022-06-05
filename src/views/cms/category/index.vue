@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable" @fetch-success="onFetchSuccess">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增菜单</a-button>
+        <a-button type="primary" icon="" @click="handleCreate">新增分类</a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -23,28 +23,28 @@
         />
       </template>
     </BasicTable>
-    <MenuDrawer @register="registerDrawer" @success="handleSuccess" />
+    <DataDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent, nextTick } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getMenuList } from '/@/api/demo/system';
+  import { deleteCategory, getCategories } from '/@/api/cms';
 
   import { useDrawer } from '/@/components/Drawer';
-  import MenuDrawer from './MenuDrawer.vue';
+  import DataDrawer from './DataDrawer.vue';
 
-  import { columns, searchFormSchema } from './menu.data';
+  import { columns, searchFormSchema } from './data';
 
   export default defineComponent({
-    name: 'MenuManagement',
-    components: { BasicTable, MenuDrawer, TableAction },
+    name: 'CmsCategoryIndex',
+    components: { BasicTable, DataDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload, expandAll }] = useTable({
-        title: '菜单列表',
-        api: getMenuList,
+        title: '列表',
+        api: getCategories,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -74,6 +74,8 @@
       }
 
       function handleEdit(record: Recordable) {
+        record.parentId = record.parentId > 0 ? record.parentId : null;
+        console.log(record.parentId);
         openDrawer(true, {
           record,
           isUpdate: true,
@@ -81,7 +83,8 @@
       }
 
       function handleDelete(record: Recordable) {
-        console.log(record);
+        deleteCategory({ id: record.id });
+        reload();
       }
 
       function handleSuccess() {

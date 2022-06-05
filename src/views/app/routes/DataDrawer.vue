@@ -11,12 +11,12 @@
   </BasicDrawer>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref } from 'vue';
+  import { computed, defineComponent, ref, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './menu.data';
+  import { formSchema } from './data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
 
-  import { getMenuList } from '/@/api/demo/system';
+  import { addRoute, updateRoute, getRoutes } from '/@/api/custom';
 
   export default defineComponent({
     name: 'MenuDrawer',
@@ -36,15 +36,14 @@
         resetFields();
         setDrawerProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
-
         if (unref(isUpdate)) {
           setFieldsValue({
             ...data.record,
           });
         }
-        const treeData = await getMenuList();
+        const treeData = await getRoutes({});
         updateSchema({
-          field: 'parentMenu',
+          field: 'parentId',
           componentProps: { treeData },
         });
       });
@@ -55,8 +54,11 @@
         try {
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
-          // TODO custom api
-          console.log(values);
+          if (values.id) {
+            await updateRoute(values);
+          } else {
+            await addRoute(values);
+          }
           closeDrawer();
           emit('success');
         } finally {

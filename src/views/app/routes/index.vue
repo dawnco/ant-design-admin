@@ -23,28 +23,29 @@
         />
       </template>
     </BasicTable>
-    <MenuDrawer @register="registerDrawer" @success="handleSuccess" />
+    <DataDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent, nextTick } from 'vue';
 
   import { BasicTable, TableAction, useTable } from '/@/components/Table';
-  import { getMenuList } from '/@/api/custom';
+  import { getRoutes } from '/@/api/custom';
 
   import { useDrawer } from '/@/components/Drawer';
-  import MenuDrawer from './MenuDrawer.vue';
+  import DataDrawer from './DataDrawer.vue';
 
-  import { columns, searchFormSchema } from './menu.data';
+  import { columns, searchFormSchema } from './data';
+  import { deleteRoute } from '/@/api/custom';
 
   export default defineComponent({
-    name: 'MenuManagement',
-    components: { BasicTable, MenuDrawer, TableAction },
+    name: 'AppRoutesIndex',
+    components: { BasicTable, DataDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload, expandAll }] = useTable({
         title: '菜单列表',
-        api: getMenuList,
+        api: getRoutes,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -74,6 +75,7 @@
       }
 
       function handleEdit(record: Recordable) {
+        record.parentId = record.parentId > 0 ? record.parentId : null;
         openDrawer(true, {
           record,
           isUpdate: true,
@@ -81,7 +83,8 @@
       }
 
       function handleDelete(record: Recordable) {
-        console.log(record);
+        deleteRoute(record);
+        reload();
       }
 
       function handleSuccess() {

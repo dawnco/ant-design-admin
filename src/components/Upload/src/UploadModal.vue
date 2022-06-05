@@ -195,7 +195,9 @@
             },
           );
           item.status = UploadResultStatus.SUCCESS;
-          item.responseData = data;
+          // item.responseData = data;
+          // 20220605 wms edit
+          item.responseData = data.data;
           return {
             success: true,
             error: null,

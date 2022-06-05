@@ -1,19 +1,34 @@
 import { defHttp } from '/@/utils/http/axios';
+import { getMenuListResultModel } from '/@/api/sys/model/menuModel';
 
-export const getMenuList = (params: any) =>
-  defHttp.get<any>({
-    url: '/menu/index',
+export const getAppMenus = (params: any) => {
+  return defHttp.post<getMenuListResultModel>({
+    url: '/app/menu',
+    params,
+  });
+};
+
+export const getRoutes = (params: any) => {
+  return defHttp.post<getMenuListResultModel>({
+    url: '/routes/index',
+    params,
+  });
+};
+
+export const addRoute = (params: any) =>
+  defHttp.post<any>({
+    url: '/routes/add',
     params,
   });
 
-export const addMenu = (params: any) =>
+export const updateRoute = (params: any) =>
   defHttp.post<any>({
-    url: '/menu/add',
+    url: '/routes/update',
     params,
   });
 
-export const updateMenu = (params: any) =>
+export const deleteRoute = (params: any) =>
   defHttp.post<any>({
-    url: '/menu/update',
+    url: '/routes/delete',
     params,
   });

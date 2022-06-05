@@ -13,10 +13,10 @@
 <script lang="ts">
   import { computed, defineComponent, ref, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './menu.data';
+  import { formSchema } from './data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
 
-  import { addMenu, getMenuList } from '/@/api/custom';
+  import { addCategory, updateCategory, getCategories } from '/@/api/cms';
 
   export default defineComponent({
     name: 'MenuDrawer',
@@ -36,13 +36,12 @@
         resetFields();
         setDrawerProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
-        console.log(JSON.stringify(data.record))
         if (unref(isUpdate)) {
           setFieldsValue({
             ...data.record,
           });
         }
-        const treeData = await getMenuList({});
+        const treeData = await getCategories({});
         updateSchema({
           field: 'parentId',
           componentProps: { treeData },
@@ -55,7 +54,11 @@
         try {
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
-          await addMenu(values);
+          if (values.id) {
+            await updateCategory(values);
+          } else {
+            await addCategory(values);
+          }
           closeDrawer();
           emit('success');
         } finally {
