@@ -15,17 +15,18 @@
 
 <script lang="ts">
   import { defineComponent, ref, h } from 'vue';
-  import { BasicModal, useModalInner } from '/@/components/Modal';
+  import { BasicModal, useModalInner, Modal } from '/@/components/Modal';
   import { BasicForm } from '/@/components/Form';
   import { useForm } from '/@/components/Form';
-  import { formSchema, typeOptions } from './data';
+  import { formSchema } from './data';
   import Fields from './Fields.vue';
-  import { addCategory, updateCategory } from '/@/api/cms';
+  import { getModule, addModule, updateModule } from '/@/api/cms';
 
   export default defineComponent({
     components: { BasicModal, BasicForm, Fields },
     setup() {
       const title = ref('修改');
+
       const fields = ref([
         {
           name: 'xx',
@@ -50,10 +51,23 @@
         baseColProps: { span: 24 },
       });
 
-      const [registerModal] = useModalInner(async (data) => {
+      const [registerModal, { closeModal }] = useModalInner(async (data) => {
+        resetFields();
         setFieldsValue({
           ...data.module,
         });
+        if (data.fields.length > 0) {
+          changeFields(data.fields);
+        } else {
+          changeFields([
+            {
+              name: '',
+              identity: '',
+              sort: 100,
+              type: 'input',
+            },
+          ]);
+        }
       });
 
       function changeFields(val) {
@@ -63,9 +77,14 @@
       async function handleSubmit() {
         try {
           const values = await validate();
-          console.log(fields.value, values);
-        } finally {
-
+          if (values.id) {
+            await updateModule({ module: values, fields: fields.value });
+          } else {
+            await addModule({ module: values, fields: fields.value });
+          }
+          closeModal();
+        } catch (e) {
+          console.log('module FormModal', e);
         }
       }
 

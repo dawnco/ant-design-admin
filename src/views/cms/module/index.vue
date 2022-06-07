@@ -64,12 +64,8 @@
       const [registerModal, { openModal }] = useModal();
 
       function handleCreate() {
-        openModal(true, {});
+        openModal(true, { module: {}, fields: [] });
       }
-
-      onMounted(() => {
-        handleCreate();
-      });
 
       async function handleEdit(record: Recordable) {
         let r = await getModule({ id: record.id });
