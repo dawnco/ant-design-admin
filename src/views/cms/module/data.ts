@@ -1,0 +1,57 @@
+import { BasicColumn } from '/@/components/Table';
+import { FormSchema } from '/@/components/Table';
+
+export const columns: BasicColumn[] = [
+  {
+    title: '名称',
+    dataIndex: 'name',
+    width: 200,
+    align: 'left',
+  },
+
+  {
+    title: '标识',
+    dataIndex: 'identity',
+    width: 50,
+  },
+];
+
+export const formSchema: FormSchema[] = [
+  {
+    field: '',
+    label: '模型',
+    component: 'Divider',
+  },
+  {
+    field: 'id',
+    label: 'ID',
+    component: 'Input',
+    required: false,
+    show: false,
+  },
+  {
+    field: 'identity',
+    label: '标识',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'name',
+    label: '名称',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: '',
+    label: '字段',
+    component: 'Divider',
+  },
+];
+
+export const typeOptions = [
+  { label: 'input', value: 'input' },
+  { label: 'select', value: 'select' },
+  { label: 'text', value: 'text' },
+  { label: 'editor', value: 'editor' },
+  { label: 'image', value: 'image' },
+];
