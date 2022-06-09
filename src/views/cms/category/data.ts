@@ -108,7 +108,7 @@ export const formSchema: FormSchema[] = [
     componentProps: {
       api: uploadApi,
       maxNumber: 1,
-      showPreviewNumber: false,
+      showPreviewNumber: true,
       multiple: false,
     },
   },

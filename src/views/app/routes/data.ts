@@ -100,6 +100,12 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
+    field: 'orderNo',
+    label: '排序',
+    component: 'InputNumber',
+    defaultValue: 100,
+  },
+  {
     field: 'title',
     label: '菜单名称',
     component: 'Input',
@@ -115,12 +121,6 @@ export const formSchema: FormSchema[] = [
     field: 'path',
     label: '路由地址',
     component: 'Input',
-  },
-  {
-    field: 'orderNo',
-    label: '排序',
-    component: 'InputNumber',
-    defaultValue: 100,
   },
   {
     field: 'icon',
@@ -150,7 +150,7 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     label: '启用',
     component: 'RadioButtonGroup',
-    defaultValue: 1,
+    // defaultValue: 1,
     componentProps: {
       options: [
         { label: '是', value: 1 },
@@ -162,7 +162,7 @@ export const formSchema: FormSchema[] = [
     field: 'keepAlive',
     label: '是否缓存',
     component: 'RadioButtonGroup',
-    defaultValue: 1,
+    // defaultValue: 1,
     componentProps: {
       options: [
         { label: '是', value: 1 },
@@ -174,13 +174,12 @@ export const formSchema: FormSchema[] = [
     field: 'show',
     label: '是否显示',
     component: 'RadioButtonGroup',
-    defaultValue: 1,
+    // defaultValue: 1,
     componentProps: {
       options: [
         { label: '是', value: 1 },
         { label: '否', value: 0 },
       ],
     },
-    ifShow: ({ values }) => !isButton(values.type),
   },
 ];
