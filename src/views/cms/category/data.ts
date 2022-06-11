@@ -3,13 +3,13 @@ import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 // import { Icon } from '/@/components/Icon';
-import { formatToDateTime } from '/@/utils/dateUtil';
+// import { formatToDateTime } from '/@/utils/dateUtil';
 import { uploadApi } from '/@/api/sys/upload';
 
 export const columns: BasicColumn[] = [
   {
     title: '名称',
-    dataIndex: 'title',
+    dataIndex: 'name',
     width: 200,
     align: 'left',
   },
@@ -22,14 +22,6 @@ export const columns: BasicColumn[] = [
     title: '模型',
     dataIndex: 'module',
     width: 50,
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'created',
-    width: 180,
-    customRender: ({ record }) => {
-      return formatToDateTime(record.created);
-    },
   },
   {
     title: '显示',
@@ -82,7 +74,7 @@ export const formSchema: FormSchema[] = [
     component: 'TreeSelect',
     componentProps: {
       fieldNames: {
-        label: 'title',
+        label: 'name',
         key: 'id',
         value: 'id',
       },
@@ -90,7 +82,7 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    field: 'title',
+    field: 'name',
     label: '名称',
     component: 'Input',
     required: true,

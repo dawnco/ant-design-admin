@@ -4,6 +4,7 @@ import { Tinymce } from '/@/components/Tinymce';
 import { h } from 'vue';
 import { formatToDateTime } from '/@/utils/dateUtil';
 import { Tag } from 'ant-design-vue';
+import { getCategories } from '/@/api/cms';
 
 export const columns: BasicColumn[] = [
   {
@@ -46,7 +47,7 @@ export const columns: BasicColumn[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'id',
+    field: 'content_id',
     label: 'ID',
     component: 'Input',
     required: false,
@@ -59,23 +60,26 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
+    field: 'category_id',
+    label: '分类',
+    component: 'ApiTreeSelect',
+    colProps: { span: 24 },
+    componentProps: {
+      api: getCategories,
+      resultField: 'data',
+      labelField: 'name',
+      valueField: 'id',
+    },
+  },
+  {
     field: 'summary',
     label: '简介',
     component: 'InputTextArea',
-    required: true,
-  },
-  {
-    field: 'category_id',
-    label: '分类',
-    component: 'Select',
-    required: true,
-    colProps: { span: 4 },
   },
   {
     field: 'module_identity',
     label: '模型',
     component: 'Select',
-    required: true,
     colProps: { span: 4 },
   },
   {
@@ -118,11 +122,6 @@ export const formSchema: FormSchema[] = [
       showPreviewNumber: true,
       multiple: false,
     },
-  },
-  {
-    field: 'publish_date',
-    label: '发布日期',
-    component: 'DatePicker',
   },
   {
     field: 'publish_time',

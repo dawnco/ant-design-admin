@@ -6,7 +6,7 @@
       :gutter="24"
       style="margin: 0"
     >
-      <Col :span="5">
+      <Col :span="4">
         <FormItem
           label="名称"
           :name="[index, 'name']"
@@ -15,25 +15,30 @@
           <Input v-model:value="field.name" allow-clear />
         </FormItem>
       </Col>
-      <Col :span="5">
+      <Col :span="4">
         <FormItem
           label="标识"
           :name="[index, 'identity']"
           :rules="[{ required: true, message: '必填' }]"
         >
-          <Input :disabled="field.disabled" v-model:value="field.identity" allow-clear />
+          <Input
+            placeholder="唯一值"
+            :disabled="field.disabled"
+            v-model:value="field.identity"
+            allow-clear
+          />
         </FormItem>
       </Col>
-      <Col :span="5">
+      <Col :span="4">
         <FormItem
           label="排序"
           :name="[index, 'sort']"
           :rules="[{ required: true, message: '必填' }]"
         >
-          <Input v-model:value="field.sort" allow-clear />
+          <Input placeholder="升序" v-model:value="field.sort" allow-clear />
         </FormItem>
       </Col>
-      <Col :span="5">
+      <Col :span="4">
         <FormItem
           label="类型"
           :name="[index, 'type']"
@@ -46,7 +51,12 @@
           </Select>
         </FormItem>
       </Col>
-      <Col :span="2">
+      <Col :span="4">
+        <FormItem label="选项" :name="[index, 'options']">
+          <Input placeholder="逗号分割 例如: 初等,中等" v-model:value="field.options" allow-clear />
+        </FormItem>
+      </Col>
+      <Col :span="4">
         <FormItem name="sort" :rules="[{ required: true, message: 'Please input your username!' }]">
           <Button shape="round" v-if="index === fields.length - 1" @click="add(index)">新增</Button>
           <Button shape="round" v-else danger @click="remove(index)">删除</Button>

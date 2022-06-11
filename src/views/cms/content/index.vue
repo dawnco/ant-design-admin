@@ -29,13 +29,16 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { useRouter } from 'vue-router';
+  import { useGo } from '/@/hooks/web/usePage';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getContents, deleteContent } from '/@/api/cms';
   import { columns } from './data';
+
   export default defineComponent({
     name: 'CmsContentIndex',
     components: { BasicTable, TableAction, },
     setup() {
+      const go = useGo();
       const [registerTable, { reload }] = useTable({
         title: '模型',
         api: getContents,
@@ -59,6 +62,7 @@
       });
 
       function handleCreate() {
+        go('/cms/content/detail');
       }
 
       const router = useRouter();
