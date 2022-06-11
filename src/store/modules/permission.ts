@@ -124,6 +124,7 @@ export const usePermissionStore = defineStore({
       const patchHomeAffix = (routes: AppRouteRecordRaw[]) => {
         if (!routes || routes.length === 0) return;
         let homePath: string = userStore.getUserInfo.homePath || PageEnum.BASE_HOME;
+
         function patcher(routes: AppRouteRecordRaw[], parentPath = '') {
           if (parentPath) parentPath = parentPath + '/';
           routes.forEach((route: AppRouteRecordRaw) => {
@@ -140,6 +141,7 @@ export const usePermissionStore = defineStore({
             children && children.length > 0 && patcher(children, currentPath);
           });
         }
+
         try {
           patcher(routes);
         } catch (e) {
@@ -205,7 +207,6 @@ export const usePermissionStore = defineStore({
           routes = [PAGE_NOT_FOUND_ROUTE, ...routeList];
           break;
       }
-
       routes.push(ERROR_LOG_ROUTE);
       patchHomeAffix(routes);
       return routes;

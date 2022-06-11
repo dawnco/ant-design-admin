@@ -78,6 +78,22 @@ export const searchFormSchema: FormSchema[] = [
   },
 ];
 
+function radio(field, label, helpMessage = ''): FormSchema {
+  return {
+    field: field,
+    label: label,
+    component: 'RadioButtonGroup',
+    helpMessage: helpMessage,
+    // defaultValue: 1,
+    componentProps: {
+      options: [
+        { label: '是', value: 1 },
+        { label: '否', value: 0 },
+      ],
+    },
+  };
+}
+
 export const formSchema: FormSchema[] = [
   {
     field: 'id',
@@ -85,6 +101,23 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
     required: false,
     show: false,
+  },
+  {
+    field: 'title',
+    label: '菜单名称',
+    component: 'Input',
+    required: true,
+    colProps: {
+      span: 24,
+    },
+  },
+  {
+    field: 'field-detail-div',
+    component: 'Divider',
+    label: '详细',
+    colProps: {
+      span: 24,
+    },
   },
   {
     field: 'parentId',
@@ -102,18 +135,14 @@ export const formSchema: FormSchema[] = [
   {
     field: 'orderNo',
     label: '排序',
+    helpMessage: '升序',
     component: 'InputNumber',
-    defaultValue: 100,
   },
-  {
-    field: 'title',
-    label: '菜单名称',
-    component: 'Input',
-    required: false,
-  },
+
   {
     field: 'name',
     label: '路由名称',
+    helpMessage: '组件的名称',
     component: 'Input',
     required: true,
   },
@@ -143,43 +172,28 @@ export const formSchema: FormSchema[] = [
   {
     field: 'permission',
     label: '权限标识',
-    defaultValue: 'admin',
     component: 'Input',
   },
+
   {
-    field: 'status',
-    label: '启用',
-    component: 'RadioButtonGroup',
-    // defaultValue: 1,
-    componentProps: {
-      options: [
-        { label: '是', value: 1 },
-        { label: '否', value: 0 },
-      ],
-    },
+    field: 'currentActiveMenu',
+    label: '激活的菜单',
+    component: 'Input',
+    helpMessage: '当前激活的菜单。用于配置详情页时左侧激活的菜单路径',
   },
   {
-    field: 'keepAlive',
-    label: '是否缓存',
-    component: 'RadioButtonGroup',
-    // defaultValue: 1,
-    componentProps: {
-      options: [
-        { label: '是', value: 1 },
-        { label: '否', value: 0 },
-      ],
+    field: 'field-switch-div',
+    component: 'Divider',
+    label: '开关',
+    colProps: {
+      span: 24,
     },
   },
-  {
-    field: 'show',
-    label: '是否显示',
-    component: 'RadioButtonGroup',
-    // defaultValue: 1,
-    componentProps: {
-      options: [
-        { label: '是', value: 1 },
-        { label: '否', value: 0 },
-      ],
-    },
-  },
+  radio('status', '启用'),
+  radio('keepAlive', '缓存', '切换tab的时候是否保留数据'),
+  radio('carryParam', 'TAB携带参数', '如果该路由会携带参数，且需要在tab页上面显示。则需要开启'),
+  radio('showBreadcrumb', '面包屑', '该路由在面包屑上面的显示'),
+  radio('showChildrenInMenu', '展示子菜单'),
+  radio('showTab', '显示TAB', '当前路由不再标签页显示'),
+  radio('showMenu', '显示菜单', '当前路由在菜单显示'),
 ];

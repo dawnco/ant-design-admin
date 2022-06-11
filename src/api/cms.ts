@@ -56,3 +56,27 @@ export const deleteModule = (params: any) =>
     url: '/cms/module/delete',
     params,
   });
+
+export const getContents = (params: any) =>
+  defHttp.post<any>({
+    url: '/cms/content/index',
+    params,
+  });
+
+export const getContentDetail = (params: any) =>
+  defHttp.post<any>({
+    url: '/cms/content/detail',
+    params,
+  });
+
+export const saveContent = (params: any) =>
+  defHttp.post<any>({
+    url: '/cms/content/save',
+    params,
+  });
+
+export const deleteContent = (params: any) =>
+  defHttp.post<any>({
+    url: '/cms/content/delete',
+    params,
+  });

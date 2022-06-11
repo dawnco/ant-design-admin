@@ -17,6 +17,7 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
 
   import { addRoute, updateRoute, getRoutes } from '/@/api/custom';
+  import { schemas } from '/@/views/demo/page/form/basic/data';
 
   export default defineComponent({
     name: 'MenuDrawer',
@@ -29,7 +30,7 @@
         labelWidth: 100,
         schemas: formSchema,
         showActionButtonGroup: false,
-        baseColProps: { lg: 12, md: 24 },
+        baseColProps: { span: 12 },
       });
 
       const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {

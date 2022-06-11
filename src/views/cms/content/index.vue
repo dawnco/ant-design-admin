@@ -23,25 +23,22 @@
         />
       </template>
     </BasicTable>
-    <FormModal @register="registerModal" />
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, onMounted } from 'vue';
-
+  import { defineComponent } from 'vue';
+  import { useRouter } from 'vue-router';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { deleteModule, getModule, getModules } from '/@/api/cms';
+  import { getContents, deleteContent } from '/@/api/cms';
   import { columns } from './data';
-  import FormModal from './FormModal.vue';
-  import { useModal } from '/@/components/Modal';
   export default defineComponent({
-    title: 'CmsModuleIndex',
-    components: { BasicTable, TableAction, FormModal },
+    name: 'CmsContentIndex',
+    components: { BasicTable, TableAction, },
     setup() {
       const [registerTable, { reload }] = useTable({
         title: '模型',
-        api: getModules,
+        api: getContents,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -61,33 +58,32 @@
         },
       });
 
-      const [registerModal, { openModal }] = useModal();
-
       function handleCreate() {
-        openModal(true, { module: {}, fields: [] });
       }
 
+      const router = useRouter();
+
       async function handleEdit(record: Recordable) {
-        let r = await getModule({ identity: record.identity });
-        openModal(true, r);
+        router.push({
+          path: '/cms/content/detail',
+          query: {
+            contentId: record.content_id,
+            moduleIdentity: record.module_identity,
+            categoryId: record.category_id,
+          },
+        });
       }
 
       function handleDelete(record: Recordable) {
-        deleteModule({ identity: record.identity });
-        reload();
-      }
-
-      function handleSuccess() {
+        deleteContent({ id: record.content_id });
         reload();
       }
 
       return {
-        registerModal,
         registerTable,
         handleCreate,
         handleEdit,
         handleDelete,
-        handleSuccess,
       };
     },
   });
