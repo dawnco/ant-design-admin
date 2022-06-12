@@ -100,6 +100,7 @@
           name: '',
           sort: 100,
           type: 'input',
+          options: '',
         });
       }
 

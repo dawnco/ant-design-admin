@@ -63,6 +63,7 @@ export const formSchema: FormSchema[] = [
     field: 'category_id',
     label: '分类',
     component: 'ApiTreeSelect',
+    required: true,
     colProps: { span: 24 },
     componentProps: {
       api: getCategories,
@@ -77,12 +78,6 @@ export const formSchema: FormSchema[] = [
     component: 'InputTextArea',
   },
   {
-    field: 'module_identity',
-    label: '模型',
-    component: 'Select',
-    colProps: { span: 4 },
-  },
-  {
     field: 'identity',
     label: '标识',
     helpMessage: '用于取单个文章内容',
@@ -90,21 +85,6 @@ export const formSchema: FormSchema[] = [
     required: false,
     colProps: { span: 4 },
   },
-  {
-    field: 'template',
-    label: '模板',
-    component: 'Input',
-    required: true,
-    colProps: { span: 4 },
-  },
-  {
-    field: 'path',
-    label: '访问路径',
-    helpMessage: '需要以/开头 如果填写 /about.html  访问路径为  http://www.website.com/about.html',
-    component: 'Input',
-    colProps: { span: 4 },
-  },
-
   {
     field: 'sort',
     label: '排序',

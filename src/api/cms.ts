@@ -1,81 +1,81 @@
 import { defHttp } from '/@/utils/http/axios';
 
-export const getCategories = (params: any) => {
+export const getCategories = (params: any = {}) => {
   return defHttp.post({
     url: '/cms/category/index',
     params,
   });
 };
 
-export const addCategory = (params: any) =>
+export const addCategory = (params: any = {}) =>
   defHttp.post<any>({
     url: '/cms/category/add',
     params,
   });
 
-export const updateCategory = (params: any) =>
+export const updateCategory = (params: any = {}) =>
   defHttp.post<any>({
     url: '/cms/category/update',
     params,
   });
 
-export const deleteCategory = (params: any) =>
+export const deleteCategory = (params: any = {}) =>
   defHttp.post<any>({
     url: '/cms/category/delete',
     params,
   });
 
-export const getModules = (params: any) => {
+export const getModules = (params: any = {}) => {
   return defHttp.post({
     url: '/cms/module/index',
     params,
   });
 };
 
-export const getModule = (params: any) => {
+export const getModule = (params: any = {}) => {
   return defHttp.post({
     url: '/cms/module/detail',
     params,
   });
 };
 
-export const addModule = (params: any) =>
+export const addModule = (params: any = {}) =>
   defHttp.post<any>({
     url: '/cms/module/add',
     params,
   });
 
-export const updateModule = (params: any) =>
+export const saveModule = (params: any = {}) =>
   defHttp.post<any>({
-    url: '/cms/module/update',
+    url: '/cms/module/save',
     params,
   });
 
-export const deleteModule = (params: any) =>
+export const deleteModule = (params: any = {}) =>
   defHttp.post<any>({
     url: '/cms/module/delete',
     params,
   });
 
-export const getContents = (params: any) =>
+export const getContents = (params: any = {}) =>
   defHttp.post<any>({
     url: '/cms/content/index',
     params,
   });
 
-export const getContentDetail = (params: any) =>
+export const getContentDetail = (params: any = {}) =>
   defHttp.post<any>({
     url: '/cms/content/detail',
     params,
   });
 
-export const saveContent = (params: any) =>
+export const saveContent = (params: any = {}) =>
   defHttp.post<any>({
     url: '/cms/content/save',
     params,
   });
 
-export const deleteContent = (params: any) =>
+export const deleteContent = (params: any = {}) =>
   defHttp.post<any>({
     url: '/cms/content/delete',
     params,

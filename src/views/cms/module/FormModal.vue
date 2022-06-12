@@ -20,11 +20,11 @@
   import { useForm } from '/@/components/Form';
   import { formSchema } from './data';
   import Fields from './Fields.vue';
-  import { updateModule } from '/@/api/cms';
+  import { saveModule } from '/@/api/cms';
 
   export default defineComponent({
     components: { BasicModal, BasicForm, Fields },
-    setup() {
+    setup(_, { emit }) {
       const title = ref('修改');
 
       const fields = ref([
@@ -93,8 +93,9 @@
       async function handleSubmit() {
         try {
           const values = await validate();
-          await updateModule({ module: values, fields: fields.value });
+          await saveModule({ module: values, fields: fields.value });
           closeModal();
+          emit('ok');
         } catch (e) {
           console.log('module FormModal', e);
         }

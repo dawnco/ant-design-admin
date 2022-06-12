@@ -5,6 +5,7 @@ import { Tag } from 'ant-design-vue';
 // import { Icon } from '/@/components/Icon';
 // import { formatToDateTime } from '/@/utils/dateUtil';
 import { uploadApi } from '/@/api/sys/upload';
+import { getModules } from '/@/api/cms';
 
 export const columns: BasicColumn[] = [
   {
@@ -15,7 +16,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '排序',
-    dataIndex: 'orderNo',
+    dataIndex: 'sort',
     width: 50,
   },
   {
@@ -69,6 +70,12 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
+    field: 'name',
+    label: '名称',
+    component: 'Input',
+    required: true,
+  },
+  {
     field: 'parentId',
     label: '上级',
     component: 'TreeSelect',
@@ -82,10 +89,17 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    field: 'name',
-    label: '名称',
-    component: 'Input',
+    field: 'module',
+    label: '模型',
+    component: 'ApiSelect',
     required: true,
+    componentProps: {
+      api: getModules,
+      resultField: 'data',
+      labelField: 'name',
+      valueField: 'identity',
+      getPopupContainer: () => document.body,
+    },
   },
   {
     field: 'summary',
@@ -105,9 +119,10 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    field: 'orderNo',
+    field: 'sort',
     label: '排序',
     component: 'InputNumber',
+    required: true,
     helpMessage: '升序',
   },
   {

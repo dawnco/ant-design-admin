@@ -23,7 +23,7 @@
         />
       </template>
     </BasicTable>
-    <FormModal @register="registerModal" />
+    <FormModal @register="registerModal" @ok="handleSuccess" />
   </div>
 </template>
 

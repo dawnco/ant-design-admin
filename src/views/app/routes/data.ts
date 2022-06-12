@@ -133,7 +133,7 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    field: 'orderNo',
+    field: 'sort',
     label: '排序',
     helpMessage: '升序',
     component: 'InputNumber',
