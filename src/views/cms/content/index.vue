@@ -72,14 +72,12 @@
           path: '/cms/content/detail',
           query: {
             contentId: record.contentId,
-            moduleIdentity: record.moduleIdentity,
-            categoryId: record.categoryId,
           },
         });
       }
 
       function handleDelete(record: Recordable) {
-        deleteContent({ id: record.content_id });
+        deleteContent({ id: record.contentId });
         reload();
       }
 

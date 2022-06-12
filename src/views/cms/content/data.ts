@@ -98,14 +98,19 @@ export const columns: BasicColumn[] = [
     dataIndex: 'sort',
     width: 50,
   },
-  // {
-  //   title: '模型',
-  //   dataIndex: 'module',
-  //   width: 50,
-  // },
+  {
+    title: '模型',
+    dataIndex: 'module',
+    width: 100,
+  },
+  {
+    title: '模板',
+    dataIndex: 'template',
+    width: 100,
+  },
   {
     title: '发布时间',
-    dataIndex: 'created',
+    dataIndex: 'publishTime',
     width: 180,
     customRender: ({ record }) => {
       return formatDateTime(record.publishTime);
@@ -134,20 +139,13 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
-    field: 'moduleIdentity',
-    label: 'moduleIdentity',
-    component: 'Input',
-    required: false,
-    show: false,
-  },
-  {
     field: 'title',
     label: '标题',
     component: 'Input',
     required: true,
   },
   {
-    field: 'categoryId',
+    field: 'category',
     label: '分类',
     component: 'ApiTreeSelect',
     required: true,
@@ -174,7 +172,7 @@ export const formSchema: FormSchema[] = [
     field: 'image',
     label: '图片',
     component: 'Upload',
-    colProps: { span: 4 },
+    colProps: { span: 6 },
     componentProps: {
       api: uploadApi,
       maxNumber: 1,
@@ -184,30 +182,45 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'identity',
-    label: '标识',
-    helpMessage: '用于取单个文章内容',
-    component: 'Input',
-    required: false,
-    colProps: { span: 4 },
-  },
-  {
     field: 'sort',
     label: '排序',
     helpMessage: '升序',
     component: 'Input',
-    colProps: { span: 4 },
+    colProps: { span: 6 },
   },
   {
     field: 'publishTime',
     label: '发布时间',
     component: 'DatePicker',
-    required: true,
-    colProps: { span: 5 },
+    colProps: { span: 6 },
     componentProps: {
       format: 'YYYY-MM-DD HH:mm:ss',
       showTime: true,
     },
+  },
+  {
+    field: 'identity',
+    label: '标识',
+    helpMessage: '文章标识 可以通过这个找到内容',
+    component: 'Input',
+    required: false,
+    colProps: { span: 6 },
+  },
+  {
+    field: 'path',
+    label: '路径',
+    helpMessage: '通过那个url可以访问到这个内容 例如 /about.html',
+    component: 'Input',
+    required: false,
+    colProps: { span: 6 },
+  },
+  {
+    field: 'template',
+    label: '模板',
+    helpMessage: '使用那个模板路径 例如  /template/about.html',
+    component: 'Input',
+    required: false,
+    colProps: { span: 6 },
   },
   {
     field: 'summary',

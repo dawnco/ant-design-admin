@@ -126,6 +126,24 @@ export const formSchema: FormSchema[] = [
     helpMessage: '升序',
   },
   {
+    field: 'templateList',
+    label: '列表模板',
+    component: 'Input',
+    helpMessage: '例如 /list.html',
+  },
+  {
+    field: 'templateContent',
+    label: '详情模板',
+    component: 'Input',
+    helpMessage: '例如 /content.html',
+  },
+  {
+    field: 'contentListSize',
+    label: '列表数量',
+    component: 'Input',
+    helpMessage: '列表每页数量 20',
+  },
+  {
     field: 'redirect',
     label: '跳转地址',
     component: 'Input',
