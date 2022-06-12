@@ -31,7 +31,7 @@
   import { useRouter } from 'vue-router';
   import { useGo } from '/@/hooks/web/usePage';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getContents, deleteContent } from '/@/api/cms';
+  import { getContents, deleteContent } from '/@/custom/api/cms';
   import { columns } from './data';
 
   export default defineComponent({
@@ -46,7 +46,7 @@
         formConfig: {
           labelWidth: 120,
         },
-        pagination: false,
+        pagination: { pageSize: 10 },
         striped: false,
         showTableSetting: true,
         bordered: true,
@@ -71,9 +71,9 @@
         router.push({
           path: '/cms/content/detail',
           query: {
-            contentId: record.content_id,
-            moduleIdentity: record.module_identity,
-            categoryId: record.category_id,
+            contentId: record.contentId,
+            moduleIdentity: record.moduleIdentity,
+            categoryId: record.categoryId,
           },
         });
       }

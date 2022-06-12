@@ -30,13 +30,12 @@
   import { defineComponent, nextTick } from 'vue';
 
   import { BasicTable, TableAction, useTable } from '/@/components/Table';
-  import { getRoutes } from '/@/api/custom';
+  import { getRoutes, deleteRoute } from '/@/custom/api/custom';
 
   import { useDrawer } from '/@/components/Drawer';
   import DataDrawer from './DataDrawer.vue';
 
   import { columns, searchFormSchema } from './data';
-  import { deleteRoute } from '/@/api/custom';
 
   export default defineComponent({
     name: 'AppRoutesIndex',

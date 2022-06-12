@@ -30,7 +30,7 @@
   import { defineComponent, nextTick } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { deleteCategory, getCategories } from '/@/api/cms';
+  import { deleteCategory, getCategories } from '/@/custom/api/cms';
 
   import { useDrawer } from '/@/components/Drawer';
   import DataDrawer from './DataDrawer.vue';

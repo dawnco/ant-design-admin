@@ -31,7 +31,7 @@
   import { defineComponent, onMounted } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { deleteModule, getModule, getModules } from '/@/api/cms';
+  import { deleteModule, getModule, getModules } from '/@/custom/api/cms';
   import { columns } from './data';
   import FormModal from './FormModal.vue';
   import { useModal } from '/@/components/Modal';

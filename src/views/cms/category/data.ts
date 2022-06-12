@@ -5,7 +5,7 @@ import { Tag } from 'ant-design-vue';
 // import { Icon } from '/@/components/Icon';
 // import { formatToDateTime } from '/@/utils/dateUtil';
 import { uploadApi } from '/@/api/sys/upload';
-import { getModules } from '/@/api/cms';
+import { getModules } from '/@/custom/api/cms';
 
 export const columns: BasicColumn[] = [
   {

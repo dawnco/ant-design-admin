@@ -16,8 +16,7 @@
   import { formSchema } from './data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
 
-  import { addRoute, updateRoute, getRoutes } from '/@/api/custom';
-  import { schemas } from '/@/views/demo/page/form/basic/data';
+  import { addRoute, updateRoute, getRoutes } from '/@/custom/api/custom';
 
   export default defineComponent({
     name: 'MenuDrawer',

@@ -7,6 +7,13 @@ export const getCategories = (params: any = {}) => {
   });
 };
 
+export const getCategory = (params: any = {}) => {
+  return defHttp.post({
+    url: 'cms/category/detail',
+    params,
+  });
+};
+
 export const addCategory = (params: any = {}) =>
   defHttp.post<any>({
     url: '/cms/category/add',

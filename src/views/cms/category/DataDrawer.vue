@@ -16,7 +16,7 @@
   import { formSchema } from './data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
 
-  import { addCategory, updateCategory, getCategories } from '/@/api/cms';
+  import { addCategory, updateCategory, getCategories } from '/@/custom/api/cms';
 
   export default defineComponent({
     name: 'MenuDrawer',

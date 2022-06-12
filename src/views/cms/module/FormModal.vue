@@ -20,7 +20,7 @@
   import { useForm } from '/@/components/Form';
   import { formSchema } from './data';
   import Fields from './Fields.vue';
-  import { saveModule } from '/@/api/cms';
+  import { saveModule } from '/@/custom/api/cms';
 
   export default defineComponent({
     components: { BasicModal, BasicForm, Fields },

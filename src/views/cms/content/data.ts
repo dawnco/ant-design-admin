@@ -2,53 +2,140 @@ import { BasicColumn, FormSchema } from '/@/components/Table';
 import { uploadApi } from '/@/api/sys/upload';
 import { Tinymce } from '/@/components/Tinymce';
 import { h } from 'vue';
-import { formatToDateTime } from '/@/utils/dateUtil';
-import { Tag } from 'ant-design-vue';
-import { getCategories } from '/@/api/cms';
+import { formatDateTime } from '/@/utils/dateUtil';
+// import { Tag } from 'ant-design-vue';
+import { getCategories, getCategory } from '/@/custom/api/cms';
+
+const appendFields = [];
+
+export function renderFields(appendSchemaByField, removeSchemaByFiled, fields) {
+  appendFields.forEach((v) => {
+    removeSchemaByFiled(v);
+  });
+
+  fields.forEach((f) => {
+    let schema: FormSchema = {} as FormSchema;
+    const field = 'FIELD_' + f.identity;
+
+    appendFields.push(field as never);
+
+    switch (f.type) {
+      case 'image':
+        schema = {
+          field: field,
+          label: f.name,
+          component: 'Upload',
+          defaultValue: f.content ? f.content : [],
+          componentProps: {
+            api: uploadApi,
+            maxNumber: 1,
+            showPreviewNumber: true,
+            multiple: false,
+          },
+        };
+        break;
+      case 'editor':
+        schema = {
+          field: field,
+          label: f.name,
+          component: 'Input',
+          defaultValue: f.content,
+          render: ({ model, field }) => {
+            return h(Tinymce, {
+              value: model[field],
+              onChange: (value: string) => {
+                model[field] = value;
+              },
+            });
+          },
+        };
+        break;
+      case 'input':
+        schema = {
+          field: field,
+          label: f.name,
+          defaultValue: f.content,
+          component: 'Input',
+        };
+        break;
+      case 'select':
+        schema = {
+          field: field,
+          label: f.name,
+          defaultValue: f.content,
+          component: 'Select',
+          componentProps: {
+            options: f.options,
+          },
+        };
+        break;
+      case 'text':
+        schema = {
+          field: field,
+          label: f.name,
+          defaultValue: f.content,
+          component: 'InputTextArea',
+        };
+        break;
+    }
+    appendSchemaByField(schema, '');
+  });
+}
 
 export const columns: BasicColumn[] = [
   {
-    title: '名称',
-    dataIndex: 'title',
+    title: 'ID',
+    dataIndex: 'contentId',
     width: 200,
     align: 'left',
   },
   {
+    title: '名称',
+    dataIndex: 'title',
+  },
+  {
     title: '排序',
-    dataIndex: 'orderNo',
+    dataIndex: 'sort',
     width: 50,
   },
+  // {
+  //   title: '模型',
+  //   dataIndex: 'module',
+  //   width: 50,
+  // },
   {
-    title: '模型',
-    dataIndex: 'module',
-    width: 50,
-  },
-  {
-    title: '创建时间',
+    title: '发布时间',
     dataIndex: 'created',
     width: 180,
     customRender: ({ record }) => {
-      return formatToDateTime(record.created);
+      return formatDateTime(record.publishTime);
     },
   },
-  {
-    title: '显示',
-    dataIndex: 'show',
-    width: 80,
-    customRender: ({ record }) => {
-      const show = record.show;
-      const enable = ~~show === 1;
-      const color = enable ? 'green' : 'red';
-      const text = enable ? '显示' : '隐藏';
-      return h(Tag, { color: color }, () => text);
-    },
-  },
+  // {
+  //   title: '显示',
+  //   dataIndex: 'show',
+  //   width: 80,
+  //   customRender: ({ record }) => {
+  //     const show = record.show;
+  //     const enable = ~~show === 1;
+  //     const color = enable ? 'green' : 'red';
+  //     const text = enable ? '显示' : '隐藏';
+  //     return h(Tag, { color: color }, () => text);
+  //   },
+  // },
 ];
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'content_id',
-    label: 'ID',
+    field: 'contentId',
+    label: 'contentId',
+    component: 'Input',
+    required: false,
+    show: false,
+  },
+  {
+    field: 'moduleIdentity',
+    label: 'moduleIdentity',
     component: 'Input',
     required: false,
     show: false,
@@ -60,23 +147,42 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'category_id',
+    field: 'categoryId',
     label: '分类',
     component: 'ApiTreeSelect',
     required: true,
-    colProps: { span: 24 },
-    componentProps: {
-      api: getCategories,
-      resultField: 'data',
-      labelField: 'name',
-      valueField: 'id',
+    colProps: { span: 6 },
+    componentProps: ({ formActionType }) => {
+      return {
+        api: getCategories,
+        resultField: 'data',
+        labelField: 'name',
+        valueField: 'id',
+        onChange: (val) => {
+          getCategory({ categoryId: val }).then((r) => {
+            renderFields(
+              formActionType.appendSchemaByField,
+              formActionType.removeSchemaByFiled,
+              r.fields,
+            );
+          });
+        },
+      };
     },
   },
   {
-    field: 'summary',
-    label: '简介',
-    component: 'InputTextArea',
+    field: 'image',
+    label: '图片',
+    component: 'Upload',
+    colProps: { span: 4 },
+    componentProps: {
+      api: uploadApi,
+      maxNumber: 1,
+      showPreviewNumber: true,
+      multiple: false,
+    },
   },
+
   {
     field: 'identity',
     label: '标识',
@@ -90,23 +196,23 @@ export const formSchema: FormSchema[] = [
     label: '排序',
     helpMessage: '升序',
     component: 'Input',
+    colProps: { span: 4 },
   },
-
   {
-    field: 'image',
-    label: '图片',
-    component: 'Upload',
+    field: 'publishTime',
+    label: '发布时间',
+    component: 'DatePicker',
+    required: true,
+    colProps: { span: 5 },
     componentProps: {
-      api: uploadApi,
-      maxNumber: 1,
-      showPreviewNumber: true,
-      multiple: false,
+      format: 'YYYY-MM-DD HH:mm:ss',
+      showTime: true,
     },
   },
   {
-    field: 'publish_time',
-    label: '发布时间',
-    component: 'TimePicker',
+    field: 'summary',
+    label: '简介',
+    component: 'InputTextArea',
   },
   {
     field: 'content',
