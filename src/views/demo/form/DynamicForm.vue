@@ -1,10 +1,10 @@
 <template>
   <PageWrapper title="动态表单示例">
     <div class="mb-4">
-      <a-button @click="changeLabel3" class="mr-2"> 更改字段3label</a-button>
-      <a-button @click="changeLabel34" class="mr-2"> 同时更改字段3,4label</a-button>
-      <a-button @click="appendField" class="mr-2"> 往字段3后面插入字段10</a-button>
-      <a-button @click="deleteField" class="mr-2"> 删除字段11</a-button>
+      <a-button @click="changeLabel3" class="mr-2"> 更改字段3label </a-button>
+      <a-button @click="changeLabel34" class="mr-2"> 同时更改字段3,4label </a-button>
+      <a-button @click="appendField" class="mr-2"> 往字段3后面插入字段10 </a-button>
+      <a-button @click="deleteField" class="mr-2"> 删除字段11 </a-button>
     </div>
     <CollapseContainer title="动态表单示例,动态根据表单内其他值改变">
       <BasicForm @register="register" />
@@ -196,14 +196,12 @@
           span: 24,
         },
       });
-
       function changeLabel3() {
         updateSchema({
           field: 'field3',
           label: '字段3 New',
         });
       }
-
       function changeLabel34() {
         updateSchema([
           {
@@ -220,37 +218,19 @@
       function appendField() {
         appendSchemaByField(
           {
-            field: 'fieldName',
-            label: '名称',
+            field: 'field10',
+            label: '字段10',
             component: 'Input',
-            colProps: { lg: 12, md: 12 },
+            colProps: {
+              span: 8,
+            },
           },
-          'field1',
-        );
-        appendSchemaByField(
-          {
-            field: 'fieldSort',
-            label: '排序',
-            component: 'Input',
-            colProps: { lg: 12, md: 12 },
-          },
-          'fieldSort',
-        );
-        appendSchemaByField(
-          {
-            field: 'fieldType',
-            label: '类型',
-            component: 'Input',
-            colProps: { lg: 12, md: 12 },
-          },
-          'fieldType',
+          'field3',
         );
       }
-
       function deleteField() {
         removeSchemaByFiled('field11');
       }
-
       return {
         register,
         register1,

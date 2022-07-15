@@ -2,7 +2,7 @@ import { BasicColumn, FormSchema } from '/@/components/Table';
 import { uploadApi } from '/@/api/sys/upload';
 import { Tinymce } from '/@/components/Tinymce';
 import { h } from 'vue';
-import { formatDateTime } from '/@/utils/dateUtil';
+import { formatToDateTime } from '/@/utils/dateUtil';
 // import { Tag } from 'ant-design-vue';
 import { getCategories, getCategory } from '/@/custom/api/cms';
 
@@ -113,7 +113,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'publishTime',
     width: 180,
     customRender: ({ record }) => {
-      return formatDateTime(record.publishTime);
+      return formatToDateTime(record.publishTime);
     },
   },
   // {
