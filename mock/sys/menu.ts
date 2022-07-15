@@ -1,4 +1,4 @@
-import { resultSuccess, resultError, getRequestToken, requestParams } from '../_util';
+import { getRequestToken, requestParams, resultError, resultSuccess } from '../_util';
 import { MockMethod } from 'vite-plugin-mock';
 import { createFakeUserList } from './user';
 
@@ -235,6 +235,45 @@ const linkRoute = {
   ],
 };
 
+const appRoute = {
+  path: '/app',
+  name: 'app',
+  component: 'LAYOUT',
+  redirect: '/category/category',
+  meta: {
+    icon: 'ion:tv-outline',
+    title: 'routes.demo.iframe.frame',
+  },
+  children: [
+    {
+      path: 'category',
+      name: 'app-category',
+      component: '/app/category',
+      meta: {
+        // affix: true,
+        title: '分类',
+      },
+    },
+    {
+      path: 'menu',
+      name: 'app-menu',
+      component: '/app/menu.vue',
+      meta: {
+        // affix: true,
+        title: '菜单',
+      },
+    },
+    {
+      path: '/app/module',
+      name: 'app-module',
+      component: '/app/module.vue',
+      meta: {
+        title: '模型',
+      },
+    },
+  ],
+};
+
 export default [
   {
     url: '/basic-api/getMenuList',
@@ -254,11 +293,11 @@ export default [
       switch (id) {
         case '1':
           dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path;
-          menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute];
+          menu = [appRoute, dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute];
           break;
         case '2':
           dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[1].path;
-          menu = [dashboardRoute, authRoute, levelRoute, linkRoute];
+          menu = [appRoute, dashboardRoute, authRoute, levelRoute, linkRoute];
           break;
         default:
           menu = [];
