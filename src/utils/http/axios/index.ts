@@ -49,16 +49,34 @@ const transform: AxiosTransform = {
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
     const { code, data, message } = res.data;
-
-    if (code === undefined) {
-      // 接口错误
-      throw new Error(t('sys.api.apiRequestFailed') + ':' + res.data);
-    } else if (code == ResultEnum.SUCCESS) {
+    // 接口响应成功
+    if (code == ResultEnum.SUCCESS) {
       return data;
-    } else {
-      console.log('message', message);
-      throw new Error(message);
     }
+
+    if (code == ResultEnum.TIMEOUT) {
+      // 需要登录
+      const userStore = useUserStoreWithOut();
+      userStore.setToken(undefined);
+      userStore.logout(true);
+      throw new Error('not login');
+    }
+
+    let errorMsg;
+    //接口响应错误 不是json数据
+    if (code == undefined) {
+      errorMsg = t('sys.api.apiRequestFailed') + ': ' + res.data;
+    } else {
+      // 接口响应的错误
+      errorMsg = message;
+    }
+
+    if (options.errorMessageMode === 'modal') {
+      createErrorModal({ title: t('sys.api.errorTip'), content: errorMsg });
+    } else if (options.errorMessageMode === 'message') {
+      createMessage.error(errorMsg);
+    }
+    throw new Error(errorMsg);
 
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
