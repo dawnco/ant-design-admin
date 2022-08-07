@@ -2,7 +2,9 @@
   <div class="p-4">
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" icon="" @click="handleCreate">新增</a-button>
+        <a-button v-auth="'content.add'" type="primary" icon="" @click="handleCreate"
+          >新增</a-button
+        >
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">

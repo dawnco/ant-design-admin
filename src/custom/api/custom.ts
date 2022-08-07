@@ -3,7 +3,14 @@ import { getMenuListResultModel } from '/@/api/sys/model/menuModel';
 
 export const getAppMenus = (params: any) => {
   return defHttp.post<getMenuListResultModel>({
-    url: '/app/menu',
+    url: '/user/menu',
+    params,
+  });
+};
+
+export const getUserMenu = (params: any) => {
+  return defHttp.post<getMenuListResultModel>({
+    url: '/user/menu',
     params,
   });
 };

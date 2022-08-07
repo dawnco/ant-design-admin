@@ -22,7 +22,7 @@ import { getPermCode } from '/@/api/sys/user';
 
 import { useMessage } from '/@/hooks/web/useMessage';
 import { PageEnum } from '/@/enums/pageEnum';
-import { getAppMenus } from '/@/custom/api/custom';
+import { getUserMenu } from '/@/custom/api/custom';
 
 interface PermissionState {
   // Permission code list
@@ -222,7 +222,7 @@ export const usePermissionStore = defineStore({
           let routeList: AppRouteRecordRaw[] = [];
           try {
             await this.changePermissionCode();
-            routeList = (await getAppMenus({})) as AppRouteRecordRaw[];
+            routeList = (await getUserMenu({})) as AppRouteRecordRaw[];
           } catch (error) {
             console.error(error);
           }
