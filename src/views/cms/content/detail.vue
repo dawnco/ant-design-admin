@@ -71,9 +71,11 @@
           let ef = (error as any).errorFields;
           if (ef) {
             errors = ef[0].errors;
+            let msg = errors.join(' ');
+            createMessage.error(msg);
+          } else {
+            createMessage.error(error.message);
           }
-          let msg = errors.join(' ');
-          createMessage.error(msg);
         } finally {
           showLoading.value = false;
         }

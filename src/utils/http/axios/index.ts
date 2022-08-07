@@ -50,10 +50,14 @@ const transform: AxiosTransform = {
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
     const { code, data, message } = res.data;
 
-    // 这里逻辑可以根据项目进行修改
-    const hasSuccess = res.data && Reflect.has(res.data, 'code') && code === ResultEnum.SUCCESS;
-    if (hasSuccess) {
+    if (code === undefined) {
+      // 接口错误
+      throw new Error(t('sys.api.apiRequestFailed') + ':' + res.data);
+    } else if (code == ResultEnum.SUCCESS) {
       return data;
+    } else {
+      console.log('message', message);
+      throw new Error(message);
     }
 
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
@@ -193,9 +197,9 @@ const transform: AxiosTransform = {
     const retryRequest = new AxiosRetry();
     const { isOpenRetry } = config.requestOptions.retryRequest;
     config.method?.toUpperCase() === RequestEnum.GET &&
-      isOpenRetry &&
-      // @ts-ignore
-      retryRequest.retry(axiosInstance, error);
+    isOpenRetry &&
+    // @ts-ignore
+    retryRequest.retry(axiosInstance, error);
     return Promise.reject(error);
   },
 };
@@ -253,6 +257,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
     ),
   );
 }
+
 export const defHttp = createAxios();
 
 // other api url
