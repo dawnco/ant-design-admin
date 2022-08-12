@@ -39,3 +39,28 @@ export const deleteRoute = (params: any) =>
     url: '/routes/delete',
     params,
   });
+
+// 用户
+  export const getUser = (params: any) =>
+  defHttp.post<any>({
+    url: '/user/index',
+    params,
+  });
+
+export const deleteUser = (params: any) =>
+  defHttp.post<any>({
+    url: '/user/delete',
+    params,
+  });
+
+export const addUser = (params: any) =>
+  defHttp.post<any>({
+    url: '/user/save',
+    params,
+  });
+
+  export const detailUser = (params: any) =>
+  defHttp.post<any>({
+    url: '/user/detail',
+    params,
+  });

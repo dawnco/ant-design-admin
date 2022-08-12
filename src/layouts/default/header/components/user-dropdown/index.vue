@@ -29,10 +29,16 @@
           :text="t('layout.header.dropdownItemLoginOut')"
           icon="ion:power-outline"
         />
+        <MenuItem
+          key="editPassword"
+          :text="t('layout.header.dropdownItemEditPassword')"
+          icon="ion:lock-closed-outline"
+        />
       </Menu>
     </template>
   </Dropdown>
   <LockAction @register="register" />
+  <EditPassword @register="registerEdit" />
 </template>
 <script lang="ts">
   // components
@@ -65,6 +71,7 @@
       MenuItem: createAsyncComponent(() => import('./DropMenuItem.vue')),
       MenuDivider: Menu.Divider,
       LockAction: createAsyncComponent(() => import('../lock/LockModal.vue')),
+      EditPassword: createAsyncComponent(() => import('../edit-password/editPasswordModal.vue')),
     },
     props: {
       theme: propTypes.oneOf(['dark', 'light']),
@@ -81,7 +88,7 @@
       });
 
       const [register, { openModal }] = useModal();
-
+      const [registerEdit, { openModal: openModalEdit }] = useModal();
       function handleLock() {
         openModal(true);
       }
@@ -95,7 +102,9 @@
       function openDoc() {
         openWindow(DOC_URL);
       }
-
+      function editPassword() {
+        openModalEdit(true);
+      }
       function handleMenuClick(e: MenuInfo) {
         switch (e.key as MenuEvent) {
           case 'logout':
@@ -107,6 +116,9 @@
           case 'lock':
             handleLock();
             break;
+          case 'editPassword':
+            editPassword();
+            break;
         }
       }
 
@@ -117,6 +129,7 @@
         handleMenuClick,
         getShowDoc,
         register,
+        registerEdit,
         getUseLockPage,
       };
     },
