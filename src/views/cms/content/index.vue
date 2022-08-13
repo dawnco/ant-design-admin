@@ -3,7 +3,8 @@
     <BasicTable @register="registerTable">
       <template #toolbar>
         <a-button v-auth="'content.add'" type="primary" icon="" @click="handleCreate"
-          >新增</a-button
+        >新增
+        </a-button
         >
       </template>
       <template #bodyCell="{ column, record }">
@@ -37,10 +38,11 @@
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getContents, deleteContent } from '/@/custom/api/cms';
   import { columns } from './data';
+  import customSetting from '/@/custom/customSetting';
 
   export default defineComponent({
     name: 'CmsContentIndex',
-    components: { BasicTable, TableAction, },
+    components: { BasicTable, TableAction },
     setup() {
       const go = useGo();
       const [registerTable, { reload }] = useTable({
@@ -48,7 +50,7 @@
         api: getContents,
         columns,
         formConfig: {
-          labelWidth: 120,
+          labelWidth: customSetting.table.formConfig.labelWidth,
         },
         pagination: { pageSize: 10 },
         striped: false,
@@ -56,12 +58,7 @@
         bordered: true,
         showIndexColumn: false,
         canResize: false,
-        actionColumn: {
-          width: 80,
-          title: '操作',
-          dataIndex: 'action',
-          fixed: undefined,
-        },
+        actionColumn: customSetting.table.actionColumn,
       });
 
       function handleCreate() {

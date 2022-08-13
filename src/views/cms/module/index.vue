@@ -37,6 +37,7 @@
   import { columns } from './data';
   import FormModal from './FormModal.vue';
   import { useModal } from '/@/components/Modal';
+  import customSetting from '/@/custom/customSetting';
   export default defineComponent({
     title: 'CmsModuleIndex',
     components: { BasicTable, TableAction, FormModal },
@@ -46,7 +47,7 @@
         api: getModules,
         columns,
         formConfig: {
-          labelWidth: 120,
+          labelWidth: customSetting.table.formConfig.labelWidth,
         },
         pagination: false,
         striped: false,
@@ -54,12 +55,7 @@
         bordered: true,
         showIndexColumn: false,
         canResize: false,
-        actionColumn: {
-          width: 80,
-          title: '操作',
-          dataIndex: 'action',
-          fixed: undefined,
-        },
+        actionColumn: customSetting.table.actionColumn,
       });
 
       const [registerModal, { openModal }] = useModal();

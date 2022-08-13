@@ -1,5 +1,6 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import customSetting from '/@/custom/customSetting';
 // import { Tag } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
@@ -14,22 +15,17 @@ export const columns: BasicColumn[] = [
     width: 100,
   },
   {
-    title: '密码',
-    dataIndex: 'password',
-    width: 100,
-    ellipsis: false,
-  },
-  {
     title: '电话',
     dataIndex: 'phone',
     width: 100,
   },
   {
-    title: 'enabled',
+    title: '启用',
     dataIndex: 'enabled',
-    width: 100,
+    customRender: ({ record }) => {
+      return customSetting.table.switchButton(record, 'enabled', 'admin', 'id');
+    },
   },
-
 ];
 export const formSchema: FormSchema[] = [
   {

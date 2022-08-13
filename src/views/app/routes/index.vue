@@ -38,6 +38,7 @@
   import DataDrawer from './DataDrawer.vue';
 
   import { columns, searchFormSchema } from './data';
+  import customSetting from '/@/custom/customSetting';
 
   export default defineComponent({
     name: 'AppRoutesIndex',
@@ -49,7 +50,7 @@
         api: getRoutes,
         columns,
         formConfig: {
-          labelWidth: 120,
+          labelWidth: customSetting.table.formConfig.labelWidth,
           schemas: searchFormSchema,
         },
         isTreeTable: true,
@@ -60,13 +61,7 @@
         bordered: true,
         showIndexColumn: false,
         canResize: false,
-        actionColumn: {
-          width: 80,
-          title: '操作',
-          dataIndex: 'action',
-          // slots: { customRender: 'action' },
-          fixed: undefined,
-        },
+        actionColumn: customSetting.table.actionColumn,
       });
 
       function handleCreate() {

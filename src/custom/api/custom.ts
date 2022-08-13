@@ -41,7 +41,7 @@ export const deleteRoute = (params: any) =>
   });
 
 // 用户
-  export const getUser = (params: any) =>
+export const getUser = (params: any) =>
   defHttp.post<any>({
     url: '/user/index',
     params,
@@ -59,8 +59,26 @@ export const addUser = (params: any) =>
     params,
   });
 
-  export const detailUser = (params: any) =>
+export const detailUser = (params: any) =>
   defHttp.post<any>({
     url: '/user/detail',
     params,
+  });
+
+export const saveSwitch = (
+  table: string,
+  field: string,
+  value: number,
+  keyField = 'id',
+  keyValue = '',
+) =>
+  defHttp.post<any>({
+    url: '/switch/save',
+    params: {
+      table,
+      field,
+      value,
+      keyField,
+      keyValue,
+    },
   });
