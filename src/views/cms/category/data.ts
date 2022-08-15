@@ -11,7 +11,6 @@ export const columns: BasicColumn[] = [
   {
     title: '名称',
     dataIndex: 'name',
-    width: 200,
     align: 'left',
   },
   {
@@ -22,7 +21,6 @@ export const columns: BasicColumn[] = [
   {
     title: '模型',
     dataIndex: 'module',
-    width: 50,
   },
   {
     title: '显示',

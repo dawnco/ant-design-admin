@@ -33,12 +33,12 @@ export const columns: BasicColumn[] = [
     dataIndex: 'path',
   },
   {
-    title: '跳转地址',
-    dataIndex: 'redirect',
+    title: 'Vue组件名称',
+    dataIndex: 'name',
   },
   {
     title: '排序',
-    dataIndex: 'orderNo',
+    dataIndex: 'sort',
     width: 50,
   },
   // {

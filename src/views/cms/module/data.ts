@@ -5,14 +5,11 @@ export const columns: BasicColumn[] = [
   {
     title: '名称',
     dataIndex: 'name',
-    width: 200,
     align: 'left',
   },
-
   {
     title: '标识',
     dataIndex: 'identity',
-    width: 50,
   },
 ];
 
