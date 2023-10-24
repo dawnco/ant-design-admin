@@ -1,6 +1,5 @@
 node_modules
 .DS_Store
-.npmrc
 dist
 .cache
 .turbo
@@ -31,7 +30,5 @@ pnpm-debug.log*
 
 package-lock.json
 pnpm-lock.yaml
-yarn.lock
-
 
 .history
