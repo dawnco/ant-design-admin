@@ -59,6 +59,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { List, Avatar, Tag, Typography } from 'ant-design-vue';
   import { isNumber } from '/@/utils/is';
+
   export default defineComponent({
     components: {
       [Avatar.name]: Avatar,
@@ -112,11 +113,15 @@
       const isTitleClickable = computed(() => !!props.onTitleClick);
       const getPagination = computed(() => {
         const { list, pageSize } = props;
-        if (pageSize > 0 && list && list.length > pageSize) {
+
+        // compatible line 104
+        // if typeof pageSize is boolean, Number(true) && 5 = 5, Number(false) && 5 = 0
+        const size = isNumber(pageSize) ? pageSize : Number(pageSize) && 5;
+
+        if (size > 0 && list && list.length > size) {
           return {
             total: list.length,
-            pageSize,
-            //size: 'small',
+            pageSize: size,
             current: unref(current),
             onChange(page) {
               current.value = page;
@@ -151,17 +156,17 @@
     &-item {
       padding: 6px;
       overflow: hidden;
-      cursor: pointer;
       transition: all 0.3s;
+      cursor: pointer;
 
       .title {
         margin-bottom: 8px;
         font-weight: normal;
 
         .extra {
-          float: right;
           margin-top: -1.5px;
           margin-right: 0;
+          float: right;
           font-weight: normal;
 
           .tag {
