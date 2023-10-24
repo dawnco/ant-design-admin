@@ -45,7 +45,6 @@
   </Dropdown>
   <LockAction @register="register" />
   <EditPassword @register="registerEdit" />
-  <ChangeApi @register="registerApi" />
 </template>
 <script lang="ts">
   // components
@@ -131,6 +130,7 @@
             break;
           case 'editPassword':
             editPassword();
+            break;
           case 'api':
             handleApi();
             break;

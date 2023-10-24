@@ -1,5 +1,5 @@
-
 import { BasicColumn } from '/@/components/Table';
+
 export const columns: BasicColumn[] = [
   {
     title: '角色ID',
@@ -12,5 +12,5 @@ export const columns: BasicColumn[] = [
   {
     title: '标识',
     dataIndex: 'identity',
-  }
+  },
 ];

@@ -5,21 +5,22 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent,ref } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal/index';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { editPassword } from '/@/custom/api/system';
+
   export default defineComponent({
     name: 'EditPasswordModal',
     components: { BasicModal, BasicForm },
     setup() {
-      const editId=ref('');
+      const editId = ref('');
       const { createMessage } = useMessage();
-      const [register, { closeModal }] = useModalInner(async (data)=>{
-        editId.value=data.record.id;
+      const [register, { closeModal }] = useModalInner(async (data) => {
+        editId.value = data.record.id;
       });
-      const [registerForm, { validateFields, resetFields }] = useForm({
+      const [registerForm, { validate, resetFields }] = useForm({
         showActionButtonGroup: false,
         schemas: [
           {
@@ -60,10 +61,10 @@
         labelAlign: 'right',
       });
       async function handleEdit() {
-        const values = await validateFields();
-        let id=editId.value;
-        let password=values.password;
-        await editPassword({password,id }).then(() => {
+        const values = await validate();
+        let id = editId.value;
+        let password = values.password;
+        await editPassword({ password, id }).then(() => {
           createMessage.success('修改成功');
           closeModal();
           resetFields();

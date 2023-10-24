@@ -9,16 +9,15 @@
   import { BasicModal, useModalInner } from '/@/components/Modal/index';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { useUserStore } from '/@/store/modules/user';
-  import { useLockStore } from '/@/store/modules/lock';
   import { editPassword } from '/@/custom/api/editPassword';
+
   export default defineComponent({
     name: 'EditPasswordModal',
     components: { BasicModal, BasicForm },
     setup() {
       const { createMessage } = useMessage();
       const [register, { closeModal }] = useModalInner();
-      const [registerForm, { validateFields, resetFields }] = useForm({
+      const [registerForm, {resetFields, validate }] = useForm({
         showActionButtonGroup: false,
         schemas: [
           {
@@ -69,7 +68,7 @@
       });
 
       async function handleEdit() {
-        const values = await validateFields();
+        const values = await validate();
         await editPassword({ ...values }).then(() => {
           createMessage.success('修改成功');
           closeModal();
